@@ -8,6 +8,8 @@
   <artifactId>reservation-system</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
+  
+  
 
   <name>reservation-system Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
@@ -20,13 +22,32 @@
   </properties>
 
   <dependencies>
+
+    <!-- Servlet API (for Tomcat 9) -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
-      <scope>test</scope>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>6.0.0</version>
+    <scope>provided</scope>
     </dependency>
-  </dependencies>
+
+
+   <dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>8.1.0</version>
+    </dependency>
+
+    <!-- JUnit (for testing) -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
+        <scope>test</scope>
+    </dependency>
+
+</dependencies>
+
 
   <build>
     <finalName>reservation-system</finalName>
