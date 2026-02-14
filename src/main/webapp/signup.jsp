@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login - Ocean View Resort</title>
+    <title>Sign Up - Ocean View Resort</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -32,7 +32,7 @@
             color: #36d1dc;
         }
 
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"], select {
             width: 100%;
             padding: 12px;
             margin: 12px 0;
@@ -46,6 +46,10 @@
 
         input[type="text"]::placeholder, input[type="password"]::placeholder {
             color: #bbb;
+        }
+
+        select {
+            color: #f0f0f0;
         }
 
         input[type="submit"] {
@@ -68,47 +72,61 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        .error {
-            background: #f44336;
-            color: white;
+        .message {
             padding: 10px;
             border-radius: 8px;
             margin-top: 15px;
             font-weight: 600;
         }
 
-        .signup-link {
+        .success { background: #4CAF50; color: white; }
+        .error { background: #f44336; color: white; }
+
+        .login-link {
             margin-top: 20px;
         }
 
-        .signup-link a {
+        .login-link a {
             color: #36d1dc;
             text-decoration: none;
             font-weight: 600;
         }
 
-        .signup-link a:hover {
+        .login-link a:hover {
             color: #5b86e5;
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>Staff/Admin Login</h2>
-        <form action="login" method="post">
-            <input type="text" name="username" placeholder="Username" required />
-            <input type="password" name="password" placeholder="Password" required />
-            <input type="submit" value="Login" />
+        <h2>Create Account</h2>
+        <form method="post" action="signup">
+            <input type="text" name="username" placeholder="Enter username" required>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <select name="role" required>
+                <option value="">-- Select Role --</option>
+                <option value="staff">Staff</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <input type="submit" value="Sign Up">
         </form>
 
-        <div class="error">
-            <% if(request.getAttribute("errorMessage") != null){
-                    out.print(request.getAttribute("errorMessage"));
-               } %>
+        <div class="message success">
+            <% if("true".equals(request.getParameter("success"))) { %>
+                Account created successfully!
+            <% } %>
         </div>
 
-        <div class="signup-link">
-            <a href="signup.jsp">Don't have an account? Sign up here</a>
+        <div class="message error">
+            <% if("true".equals(request.getParameter("error"))) { %>
+                Failed to create account! Username may already exist.
+            <% } %>
+        </div>
+
+        <div class="login-link">
+            <a href="login.jsp">Already have an account? Login here</a>
         </div>
     </div>
 </body>
