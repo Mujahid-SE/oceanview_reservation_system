@@ -4,9 +4,7 @@ import java.io.IOException;
 import com.oceanview.reservation_system.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -17,15 +15,31 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        // validation
+        if(username == null || password == null ||
+           username.isEmpty() || password.isEmpty()) {
+
+            request.setAttribute("errorMessage","All fields required");
+            request.getRequestDispatcher("login.jsp").forward(request,response);
+            return;
+        }
+
         UserDAO dao = new UserDAO();
 
-        if (dao.validate(username, password)) {
-            // Login successful → redirect to home.jsp
+        if(dao.validate(username,password)){
+
+            // CREATE SESSION (IMPORTANT)
+            HttpSession session = request.getSession();
+            session.setAttribute("user", username);
+            session.setMaxInactiveInterval(30*60); // 30 mins
+
             response.sendRedirect("home.jsp");
-        } else {
-            // Login failed → forward back to login.jsp with error message
-            request.setAttribute("errorMessage", "Invalid username or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+        }else{
+            request.setAttribute("errorMessage",
+                    "Invalid username or password");
+            request.getRequestDispatcher("login.jsp")
+                    .forward(request,response);
         }
     }
 }

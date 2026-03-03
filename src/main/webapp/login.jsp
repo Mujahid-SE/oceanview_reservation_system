@@ -1,115 +1,160 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login - Ocean View Resort</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<title>Ocean View Resort Login</title>
 
-        .card {
-            background: #2c2c2c;
-            padding: 40px 35px;
-            border-radius: 15px;
-            width: 360px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            text-align: center;
-            color: #f0f0f0;
-        }
+<style>
 
-        .card h2 {
-            margin-bottom: 25px;
-            color: #36d1dc;
-        }
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f7fa3,#1fb6d5);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            background: #3c3c3c;
-            color: #f0f0f0;
-            font-size: 1em;
-        }
+.login-container{
+    background:#fff;
+    padding:40px;
+    border-radius:15px;
+    width:350px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+}
 
-        input[type="text"]::placeholder, input[type="password"]::placeholder {
-            color: #bbb;
-        }
+h2{
+    text-align:center;
+    color:#0f4c81;
+    margin-bottom:25px;
+}
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #36d1dc;
-            color: #1c1c1c;
-            font-weight: 600;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+/* LABELS */
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+}
 
-        input[type="submit"]:hover {
-            background: #5b86e5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
+/* NORMAL INPUT */
+.input-field{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+    box-sizing:border-box;
+}
 
-        .error {
-            background: #f44336;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-weight: 600;
-        }
+/* PASSWORD WRAPPER */
+.password-wrapper{
+    position:relative;
+    width:100%;
+}
 
-        .signup-link {
-            margin-top: 20px;
-        }
+/* PASSWORD INPUT */
+.password-wrapper input{
+    width:100%;
+    padding:12px;
+    padding-right:40px; /* space for eye */
+    border-radius:8px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+}
 
-        .signup-link a {
-            color: #36d1dc;
-            text-decoration: none;
-            font-weight: 600;
-        }
+/* EYE BUTTON */
+.toggle-password{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    background:none;
+    border:none;
+    font-size:16px;
+}
 
-        .signup-link a:hover {
-            color: #5b86e5;
-        }
-    </style>
+/* BUTTON */
+.login-btn{
+    width:100%;
+    margin-top:25px;
+    padding:12px;
+    background:#1677a6;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    background:#125f86;
+}
+
+.link{
+    text-align:center;
+    margin-top:15px;
+}
+
+</style>
+
+<script>
+function togglePassword(){
+
+    const pass = document.getElementById("password");
+    const icon = document.getElementById("eyeIcon");
+
+    if(pass.type === "password"){
+        pass.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    }else{
+        pass.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+</script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
+
 <body>
-    <div class="card">
-        <h2>Staff/Admin Login</h2>
-        <form action="login" method="post">
-            <input type="text" name="username" placeholder="Username" required />
-            <input type="password" name="password" placeholder="Password" required />
-            <input type="submit" value="Login" />
-        </form>
 
-        <div class="error">
-            <% if(request.getAttribute("errorMessage") != null){
-                    out.print(request.getAttribute("errorMessage"));
-               } %>
-        </div>
+<div class="login-container">
 
-        <div class="signup-link">
-            <a href="signup.jsp">Don't have an account? Sign up here</a>
-        </div>
+<h2>Ocean View Resort Login</h2>
+
+<form action="login" method="post">
+
+    <label>Username</label>
+    <input type="text" name="username" class="input-field" required>
+
+    <label>Password</label>
+
+    <div class="password-wrapper">
+        <input type="password" id="password" name="password" required>
+
+       <button type="button"
+        class="toggle-password"
+        onclick="togglePassword()">
+
+    <i class="fa-solid fa-eye" id="eyeIcon"></i>
+
+</button>
     </div>
+
+    <button type="submit" class="login-btn">Login</button>
+
+</form>
+
+<div class="link">
+    <a href="signup.jsp">Create Account</a>
+</div>
+
+</div>
+
 </body>
 </html>

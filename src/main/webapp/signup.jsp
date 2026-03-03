@@ -1,133 +1,228 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up - Ocean View Resort</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<meta charset="UTF-8">
+<title>Ocean View Resort - Sign Up</title>
 
-        .card {
-            background: #2c2c2c;
-            padding: 40px 35px;
-            border-radius: 15px;
-            width: 360px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            text-align: center;
-            color: #f0f0f0;
-        }
+<style>
 
-        .card h2 {
-            margin-bottom: 25px;
-            color: #36d1dc;
-        }
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:linear-gradient(120deg,#00b4d8,#90e0ef);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-        input[type="text"], input[type="password"], select {
-            width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            background: #3c3c3c;
-            color: #f0f0f0;
-            font-size: 1em;
-        }
+.container{
+    background:white;
+    padding:40px;
+    width:380px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
 
-        input[type="text"]::placeholder, input[type="password"]::placeholder {
-            color: #bbb;
-        }
+h2{
+    text-align:center;
+    color:#0077b6;
+    margin-bottom:25px;
+}
 
-        select {
-            color: #f0f0f0;
-        }
+/* LABELS */
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+    margin-bottom:5px;
+}
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #36d1dc;
-            color: #1c1c1c;
-            font-weight: 600;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+/* INPUTS */
+input,
+select{
+    width:100%;
+    padding:14px 12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:15px;
+    background:#f1f5f9;
+    box-sizing:border-box;
+}
 
-        input[type="submit"]:hover {
-            background: #5b86e5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#0077b6;
+    box-shadow:0 0 5px rgba(0,119,182,0.3);
+}
 
-        .message {
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-weight: 600;
-        }
+/* PASSWORD FIELD */
+.password-wrapper{
+    position:relative;
+}
 
-        .success { background: #4CAF50; color: white; }
-        .error { background: #f44336; color: white; }
+.toggle-eye{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:18px;
+}
 
-        .login-link {
-            margin-top: 20px;
-        }
+/* DROPDOWN FIX */
+.select-wrapper{
+    position:relative;
+}
 
-        .login-link a {
-            color: #36d1dc;
-            text-decoration: none;
-            font-weight: 600;
-        }
+.select-wrapper::after{
+    content:"▼";
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    pointer-events:none;
+    font-size:12px;
+    color:#555;
+}
 
-        .login-link a:hover {
-            color: #5b86e5;
-        }
-    </style>
+select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    cursor:pointer;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    background:#0096c7;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#023e8a;
+}
+
+/* MESSAGES */
+.success{color:green;text-align:center;}
+.error{color:red;text-align:center;}
+
+#strengthMsg{
+    font-weight:bold;
+    text-align:center;
+    margin-top:8px;
+}
+
+/* LINK */
+a{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    text-decoration:none;
+    color:#0077b6;
+    font-weight:bold;
+}
+
+</style>
+
+<script>
+
+/* Show / Hide Password */
+function togglePassword(){
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+
+/* Password Strength Checker */
+function checkStrength(){
+
+    const value = document.getElementById("password").value;
+    const msg = document.getElementById("strengthMsg");
+
+    let strength = 0;
+
+    if(value.length >= 8) strength++;
+    if(/[A-Z]/.test(value)) strength++;
+    if(/[0-9]/.test(value)) strength++;
+    if(/[!@#$%^&*]/.test(value)) strength++;
+
+    if(value.length === 0){
+        msg.innerHTML="";
+        return;
+    }
+
+    if(strength <= 1){
+        msg.innerHTML="Weak password";
+        msg.style.color="red";
+    }
+    else if(strength <=3){
+        msg.innerHTML="Medium password";
+        msg.style.color="orange";
+    }
+    else{
+        msg.innerHTML="Strong password ✓";
+        msg.style.color="green";
+    }
+}
+
+</script>
 </head>
+
 <body>
-    <div class="card">
-        <h2>Create Account</h2>
-        <form method="post" action="signup">
-            <input type="text" name="username" placeholder="Enter username" required>
-            <input type="password" name="password" placeholder="Enter password" required>
 
-            <select name="role" required>
-                <option value="">-- Select Role --</option>
-                <option value="staff">Staff</option>
-                <option value="admin">Admin</option>
-            </select>
+<div class="container">
 
-            <input type="submit" value="Sign Up">
-        </form>
+<h2>Create Account</h2>
 
-        <div class="message success">
-            <% if("true".equals(request.getParameter("success"))) { %>
-                Account created successfully!
-            <% } %>
-        </div>
+<form action="signup" method="post">
 
-        <div class="message error">
-            <% if("true".equals(request.getParameter("error"))) { %>
-                Failed to create account! Username may already exist.
-            <% } %>
-        </div>
+<label>Username</label>
+<input type="text" name="username" placeholder="Enter username" required>
 
-        <div class="login-link">
-            <a href="login.jsp">Already have an account? Login here</a>
-        </div>
-    </div>
+<label>Password</label>
+<div class="password-wrapper">
+    <input type="password" id="password" name="password"
+           placeholder="Enter password"
+           oninput="checkStrength()" required>
+    <span class="toggle-eye" onclick="togglePassword()">👁</span>
+</div>
+
+<p id="strengthMsg"></p>
+
+<label>Select Role</label>
+<div class="select-wrapper">
+    <select name="role" required>
+        <option value="">Select Role</option>
+        <option value="staff">Staff</option>
+        <option value="admin">Admin</option>
+    </select>
+</div>
+
+<button type="submit">Register</button>
+
+</form>
+
+<% if("true".equals(request.getParameter("success"))){ %>
+<p class="success">Account created successfully!</p>
+<% } %>
+
+<% if("true".equals(request.getParameter("error"))){ %>
+<p class="error">Username already exists!</p>
+<% } %>
+
+<a href="login.jsp">Back to Login</a>
+
+</div>
+
 </body>
 </html>

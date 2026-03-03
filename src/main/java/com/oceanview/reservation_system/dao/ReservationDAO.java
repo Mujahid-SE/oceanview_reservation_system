@@ -69,4 +69,29 @@ return status;
 
         return res;
     }
+    
+    public boolean deleteReservation(int id) {
+
+        boolean status = false;
+
+        try {
+            Connection con = DBConnection.getConnection();
+
+            String sql = "DELETE FROM reservations WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            status = ps.executeUpdate() > 0;
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return status;
+    }
 }
+
+

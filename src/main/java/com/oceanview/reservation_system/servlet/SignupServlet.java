@@ -12,28 +12,43 @@ import java.io.IOException;
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String role = request.getParameter("role");
+	    String username = request.getParameter("username");
+	    String password = request.getParameter("password");
+	    String role = request.getParameter("role");
 
-        UserDAO dao = new UserDAO();
+	    // -------- SERVER VALIDATION --------
+	    if(username == null || username.trim().isEmpty() ||
+	       password == null || password.trim().isEmpty() ||
+	       role == null || role.trim().isEmpty()) {
 
-        try {
-            boolean created = dao.createUser(username, password, role);
+	        response.sendRedirect("signup.jsp?error=true");
+	        return;
+	    }
 
-            if (created) {
-                response.sendRedirect("signup.jsp?success=true");
-            } else {
-                response.sendRedirect("signup.jsp?error=true");
-            }
+	    // Strong password rule
+	    String pattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$";
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("signup.jsp?error=true");
-        }
-    }
-}
+	    if(!password.matches(pattern)) {
+	        response.sendRedirect("signup.jsp?error=true");
+	        return;
+	    }
+
+	    UserDAO dao = new UserDAO();
+
+	    try {
+	        boolean created = dao.createUser(username, password, role);
+
+	        if(created)
+	            response.sendRedirect("signup.jsp?success=true");
+	        else
+	            response.sendRedirect("signup.jsp?error=true");
+
+	    } catch(Exception e){
+	        e.printStackTrace();
+	        response.sendRedirect("signup.jsp?error=true");
+	    }
+	}}
