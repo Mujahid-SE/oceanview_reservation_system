@@ -26,7 +26,38 @@ public class UserDAO {
         }
         return status;
     }
+    	
+    //-------------------------------------
+    
+    public String getUserRole(String username) {
 
+        String role = null;
+
+        String sql = "SELECT role FROM staff WHERE username=?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                role = rs.getString("role");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return role;
+    }
+    
+    
+    //--------------------------------
+    
+    
+    
     // Create new user with duplicate check
     public boolean createUser(String username, String password, String role) {
         boolean status = false;

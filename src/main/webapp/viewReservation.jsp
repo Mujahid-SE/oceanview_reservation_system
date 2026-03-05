@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, com.oceanview.reservation_system.util.DBConnection" %>
+
+<%
+String role = (String) session.getAttribute("role");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,16 +89,25 @@
     <td><%= checkout %></td>
 
     <td>
-        <a class="btn-bill"
+
+<a class="btn-bill"
    href="BillServlet?reservationId=<%= id %>">
    Bill
-   </a>
-        <a class="btn-delete"
-           href="deleteReservation?id=<%= id %>"
-           onclick="return confirm('Are you sure you want to delete this reservation?');">
-           Delete
-        </a>
-    </td>
+</a>
+
+<%
+if("admin".equals(role)){
+%>
+<a class="btn-delete"
+   href="deleteReservation?id=<%= id %>"
+   onclick="return confirm('Are you sure you want to delete this reservation?');">
+   Delete
+</a>
+<%
+}
+%>
+
+</td>
 </tr>
         <%
                 }

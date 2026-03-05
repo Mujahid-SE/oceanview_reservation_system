@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <%
+String username = (String) session.getAttribute("user");
+
+if(username == null){
+    response.sendRedirect("login.jsp");
+}
+%>   
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +78,7 @@
 <body>
     <header>Ocean View Resort Dashboard</header>
 
-    <h2>Welcome, Staff / Admin!</h2>
+    <<h2>Welcome, <%= username %>!</h2>
 
     <nav>
         <a href="addReservation.jsp">Add Reservation</a>

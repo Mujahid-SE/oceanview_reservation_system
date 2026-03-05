@@ -61,15 +61,64 @@
     <header>Ocean View Resort</header>
 
     <div class="container">
-        <h2>Help Section</h2>
-        <p>Instructions for using the reservation system:</p>
-        <ul>
-            <li>Login using your staff/admin credentials.</li>
-            <li>Add new reservations through the “Add Reservation” page.</li>
-            <li>View reservations or calculate bills as needed.</li>
-            <li>Refer to this help page for guidance anytime.</li>
-        </ul>
-    </div>
+    <h2>Help & User Guide</h2>
+
+    <p>Welcome to the <strong>Ocean View Resort Reservation System</strong>. 
+    This system helps staff manage guest reservations, view booking details, and calculate bills efficiently.</p>
+
+    <h3>1. Login</h3>
+    <ul>
+        <li>Open the login page.</li>
+        <li>Enter your <strong>username</strong> and <strong>password</strong>.</li>
+        <li>Click the <strong>Login</strong> button to access the dashboard.</li>
+        <li>If login fails, check your credentials or contact the administrator.</li>
+    </ul>
+
+    <h3>2. Dashboard</h3>
+    <ul>
+        <li>The dashboard is the main control panel.</li>
+        <li>From here you can navigate to add reservations, view bookings, calculate bills, or access help.</li>
+    </ul>
+
+    <h3>3. Add Reservation</h3>
+    <ul>
+        <li>Click <strong>Add Reservation</strong> from the dashboard.</li>
+        <li>Enter the guest name, room type, check-in date, check-out date, and price per night.</li>
+        <li>Click <strong>Submit</strong> to save the reservation.</li>
+        <li>The reservation will be stored in the system database.</li>
+    </ul>
+
+    <h3>4. View Reservations</h3>
+    <ul>
+        <li>Select <strong>View Reservations</strong> from the dashboard.</li>
+        <li>All current reservations will be displayed in a table.</li>
+        <li>You can view guest details, room type, and reservation dates.</li>
+    </ul>
+
+    <h3>5. Bill Calculation</h3>
+    <ul>
+        <li>Click the <strong>Bill</strong> button next to a reservation.</li>
+        <li>The system calculates the total cost based on the number of nights stayed.</li>
+        <li>Total bill = Number of nights × Price per night.</li>
+    </ul>
+
+    <h3>6. Delete Reservation (Admin Only)</h3>
+    <ul>
+        <li>Only users with the <strong>Admin role</strong> can delete reservations.</li>
+        <li>Click the <strong>Delete</strong> button in the reservation table.</li>
+        <li>A confirmation message will appear before deletion.</li>
+    </ul>
+
+    <h3>7. Logout</h3>
+    <ul>
+        <li>Click the <strong>Logout</strong> button from the dashboard.</li>
+        <li>This will securely end your session.</li>
+    </ul>
+
+    <h3>Support</h3>
+    <p>If you experience any issues using the system, please contact the system administrator or IT support team.</p>
+
+</div>
 
     <footer>
         &copy; 2026 Ocean View Resort. All rights reserved.

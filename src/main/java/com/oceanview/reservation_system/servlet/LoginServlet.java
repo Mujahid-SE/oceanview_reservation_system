@@ -15,7 +15,6 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // validation
         if(username == null || password == null ||
            username.isEmpty() || password.isEmpty()) {
 
@@ -28,10 +27,13 @@ public class LoginServlet extends HttpServlet {
 
         if(dao.validate(username,password)){
 
-            // CREATE SESSION (IMPORTANT)
+            // GET ROLE FROM DATABASE
+            String role = dao.getUserRole(username);
+
             HttpSession session = request.getSession();
             session.setAttribute("user", username);
-            session.setMaxInactiveInterval(30*60); // 30 mins
+            session.setAttribute("role", role);   
+            session.setMaxInactiveInterval(30*60);
 
             response.sendRedirect("home.jsp");
 
