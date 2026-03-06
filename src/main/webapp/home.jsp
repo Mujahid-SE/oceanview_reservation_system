@@ -78,14 +78,14 @@ if(username == null){
 <body>
     <header>Ocean View Resort Dashboard</header>
 
-    <<h2>Welcome, <%= username %>!</h2>
+    <h2>Welcome, <%= username %>!</h2>
 
     <nav>
         <a href="addReservation.jsp">Add Reservation</a>
         <a href="viewReservation.jsp">View Reservations</a>
         <a href="bill.jsp">Calculate Bill</a>
         <a href="help.jsp">Help</a>
-        <a href="login.jsp">Logout</a>
+        <a href="logout">Logout</a>
     </nav>
 
     <footer>
