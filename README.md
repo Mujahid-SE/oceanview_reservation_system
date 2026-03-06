@@ -35,5 +35,4 @@ JUnit testing was implemented to verify key functionalities of the system. Autom
 ## Version Control
 The project source code is maintained using Git and hosted on GitHub. Multiple commits were made during the development process to track system improvements and feature additions.
 
-## Author
-Muhammad Mujahid
+
